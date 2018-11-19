@@ -1,6 +1,9 @@
-# vs
+# [vs](https://anvaka.github.io/vs/)
 
-> Versus explorer
+Visualization of google's autocomplete as a graph.
+
+![demo](https://i.imgur.com/cItD67x.gif)
+
 
 ## Build Setup
 
