@@ -4,6 +4,7 @@ Visualization of google's autocomplete as a graph.
 
 ![demo](https://i.imgur.com/cItD67x.gif)
 
+Discussion on reddit [is here](https://www.reddit.com/r/dataisbeautiful/comments/9yg8w9/googles_autocomplete_visualized_like_a_graph_link/)
 
 ## Build Setup
 
@@ -21,4 +22,6 @@ npm run build
 npm run build --report
 ```
 
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+# License
+
+The code in this repository is released under [MIT License](https://github.com/anvaka/vs/blob/master/LICENSE).
