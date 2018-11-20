@@ -90,6 +90,12 @@ export default {
   },
   mounted() {
     this.renderer = createRenderer(appState.progress);
+    bus.on('query-change', q => {
+      if (appState.query !== q) {
+        appState.query = q;
+        this.onSubmit();
+      }
+    }, this);
     bus.on('show-tooltip', this.showTooltip, this);
     if (appState.graph) {
       this.renderer.render(appState.graph);
@@ -119,6 +125,10 @@ export default {
 
 .highlight {
   color: highlight-color;
+}
+
+#nodes > * {
+  cursor: pointer;
 }
 
 rect, path, text {
