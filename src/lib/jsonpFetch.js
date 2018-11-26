@@ -1,9 +1,10 @@
 let myIndex = 0;
 
-export default function corsFetch(url, options) {
-  if (!options) options = {};
-
-  let isCancelled, actualResolve, actualReject;
+/**
+ * Performs JSONP request to a given url
+ */
+export default function jsonpFetch(url) {
+  let isCancelled, actualResolve;
   let loadScript = null;
   const name = 'callback' + (myIndex++);
   window[name] = downloaded;
@@ -15,7 +16,6 @@ export default function corsFetch(url, options) {
 
   function download(resolve, reject) {
     actualResolve = resolve;
-    actualReject = reject;
 
     loadScript = document.createElement('script');
     loadScript.src = `${url}&callback=${name}`;

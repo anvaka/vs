@@ -1,4 +1,4 @@
-import corsFetch from "./corsFetch";
+import jsonpFetch from "./jsonpFetch";
 import bus from '../bus';
 
 export default function buildGraph(entryWord, pattern, MAX_DEPTH, progress) {
@@ -113,6 +113,6 @@ export default function buildGraph(entryWord, pattern, MAX_DEPTH, progress) {
   }
 
   function getResponse(query) {
-    return corsFetch('//suggestqueries.google.com/complete/search?client=firefox&q=' + encodeURIComponent(query));
+    return jsonpFetch('//suggestqueries.google.com/complete/search?client=firefox&q=' + encodeURIComponent(query));
   }
 }
