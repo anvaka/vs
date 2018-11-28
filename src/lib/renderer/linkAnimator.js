@@ -79,6 +79,7 @@ export default function createLinkAnimator(graph, layout, edgeContainer) {
       let pathData = `M${from.x},${from.y} L${x},${y}`;
       if (!linkInfo) {
         const ui = svg('path', {
+          class: 'link-ui',
           id: link.id,
           'stroke-width': strokeWidth,
           fill: 'black',

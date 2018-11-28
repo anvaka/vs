@@ -86,17 +86,24 @@ export default {
       } else {
         el.classList.remove('visible');
       }
+    },
+
+    showDetails(link) {
+      const query = resolveQueryFromLink(link.fromId, link.toId);
+      window.open('https://google.com/search?q=' + encodeURIComponent(query), '_blank');
     }
   },
   mounted() {
     this.renderer = createRenderer(appState.progress);
     bus.on('show-tooltip', this.showTooltip, this);
+    bus.on('show-details', this.showDetails, this);
     if (appState.graph) {
       this.renderer.render(appState.graph);
     }
   },
   beforeDestroy() {
     bus.off('show-tooltip', this.showTooltip, this);
+    bus.off('show-details', this.showDetails, this);
   }
 
 }

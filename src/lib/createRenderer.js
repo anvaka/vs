@@ -43,6 +43,14 @@ export default function createRenderer(progress) {
     }
   }
 
+  function onSceneClick(e) {
+    const id = e.target && e.target.id;
+    const info = linkAnimator.getLinkInfo(id);
+    if (info)  {
+      bus.fire('show-details', info.link);
+    }
+  }
+
   function showTooltip(minLink, clientX, clientY) {
     const {fromId, toId} = minLink.link;
     bus.fire('show-tooltip', {
@@ -116,6 +124,7 @@ export default function createRenderer(progress) {
     progress.done();
     linkAnimator = createLinkAnimator(graph, layout, edgeContainer);
     document.addEventListener('mousemove', onMouseMove);
+    scene.addEventListener('click', onSceneClick, true);
   }
 
   function clearLastScene() {
@@ -123,6 +132,7 @@ export default function createRenderer(progress) {
     clear(edgeContainer);
 
     document.removeEventListener('mousemove', onMouseMove);
+    scene.removeEventListener('click', onSceneClick, true);
     if (layout) layout.off('ready', drawLinks);
     if (graph) graph.off('changed', onGraphStructureChanged);
     if (linkAnimator) linkAnimator.dispose();
