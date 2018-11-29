@@ -1,4 +1,4 @@
-import  Delaunator from 'delaunator';
+import Delaunator from 'delaunator';
 import createGraph from 'ngraph.graph';
 
 export default function getDelaunayGraph(vertices) {

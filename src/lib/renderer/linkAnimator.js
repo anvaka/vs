@@ -1,3 +1,6 @@
+/**
+ * This file is responsible for animating edges when nodes positions are known.
+ */
 let svg = require('simplesvg');
 let random = require('ngraph.random')(42);
 

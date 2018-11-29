@@ -10,6 +10,9 @@
 </template>
 
 <script>
+/**
+ * A user control that renders input string with read-only prefix/suffix
+ */
 export default {
   props: ['placeholder', 'value', 'pattern'],
   watch: {
@@ -30,6 +33,8 @@ export default {
       this.$refs.input.focus();
     },
     ensureSuffixPos() {
+      // We have to measure each bit of text (prefix, content, suffix), so that
+      // we can place labels accordingly.
       // Good thing that this doesn't happen often. Otherwise this would be super slow
       const {suffix, measure, prefix} = this.$refs;
 
@@ -47,6 +52,7 @@ export default {
 
       let suffixPos = Math.min(prefixBox.width + textWidth.width + 4, maxValue);
       if (this.value.length === 0) {
+        // When there is nothing entered, let's hide prefix/suffix.
         suffix.style.visibility = 'hidden';
         prefix.style.visibility = 'hidden';
         this.$refs.input.style.paddingRight = '0';

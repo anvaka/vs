@@ -2,7 +2,6 @@
   <div id="app">
     <form v-on:submit.prevent="onSubmit" class='search-box'>
       <span @click.prevent='forwardFocus'>Graph for</span>
-      <!-- <input class='search-input' type="text" v-model='appState.query' placeholder='Enter query' autofocus> -->
       <query-input class='query-input' placeholder='Enter query' v-model='appState.query' :pattern='appState.pattern' ref='queryInput'></query-input>
       <a type='submit' class='search-submit' href='#' @click.prevent='onSubmit' v-if='appState.query'>Go</a>
     </form>
@@ -58,10 +57,6 @@ export default {
     isLoading() {
       return appState.progress.working;
     },
-    // pattern() {
-    //   if (appState.query) return resolveQueryFromLink(appState.query, '...');
-    //   return appState.pattern
-    // }
   },
   methods: {
     forwardFocus() {

@@ -51,7 +51,6 @@ export class Boid {
 
   run(boids) {
     this.flock(boids);
-    this.borders();
     this.update();
   }
 
@@ -82,8 +81,6 @@ export class Boid {
     this.applyForce(coh, mass);
 
     const pull = Vector.sub(this.desiredPosition, this.position);
-    // pull.div(boids.length);
-    //pull.normalize();
     pull.limit(0.091);
     this.applyForce(pull, mass);
   }
@@ -111,15 +108,6 @@ export class Boid {
     let steer = Vector.sub(desired, this.velocity);
     steer.limit(this.maxforce * 1);  // Limit to maximum steering force
     return steer;
-  }
-
-  // Wraparound
-  borders() {
-    return;
-    if (this.position.x < -this.r) this.velocity.x *= -1;
-    if (this.position.y < -this.r) this.velocity.y *= -1;
-    if (this.position.x > this.r) this.velocity.x *= -1;
-    if (this.position.y > this.r) this.velocity.y *= -1;
   }
 
   // Separation
