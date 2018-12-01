@@ -1,6 +1,9 @@
 import jsonpFetch from "./jsonpFetch";
 import bus from '../bus';
 
+/**
+ * This function builds a graph from google's auto-suggestions.
+ */
 export default function buildGraph(entryWord, pattern, MAX_DEPTH, progress) {
   entryWord = entryWord && entryWord.trim();
   if (!entryWord) return;
@@ -91,12 +94,14 @@ export default function buildGraph(entryWord, pattern, MAX_DEPTH, progress) {
 
   function fetchNext(query) {
     pendingResponse = getResponse(fullQuery(query));
-    pendingResponse.then(res => onPendingReady(res, query)).catch((msg) => {
-      const err = 'Failed to download ' + query + '; Message: ' + msg;
-      console.error(err);
-      progress.downloadError(err)
-      loadNext();
-    });
+    pendingResponse
+      .then(res => onPendingReady(res, query))
+      .catch((msg) => {
+        const err = 'Failed to download ' + query + '; Message: ' + msg;
+        console.error(err);
+        progress.downloadError(err)
+        loadNext();
+      });
   }
 
   function onPendingReady(res, query) {

@@ -1,3 +1,15 @@
+/**
+ * This is the core of the layout. The layout here is kind of "cheating"
+ * layout. The real layout happens in the background and is never shown on
+ * the screen until either certain amount of iterations has finished
+ * or time quota allowed for the layout exceeded.
+ * 
+ * While background layout does the work, on the front end nodes are 
+ * flying according to "Boids" algorithm (flocking behavior).
+ * 
+ * When background algorithm is finished, the boids are flying to the
+ * final positions with simple interpolation animation.
+ */
 import createFakeLayout from './layout/boidLayout';
 import createInterpolateLayout from './createInterpolateLayout';
 import removeOverlaps from './layout/removeOverlaps';
@@ -6,6 +18,7 @@ import Rect from './layout/Rect';
 let eventify = require('ngraph.events');
 
 let createLayout = require('ngraph.forcelayout')
+
 const USE_FAKE = 1;
 const USE_INTERPOLATE = 2;
 const REMOVE_OVERLAPS = 3;

@@ -92,9 +92,11 @@ export default {
     position: absolute;
     display: flex;
     color: #eaaac0;
+    pointer-events: none;
   }
 
   .prefix {
+    pointer-events: none;
     left: 0;
     top: 0;
     bottom: 0;
