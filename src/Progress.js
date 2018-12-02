@@ -1,3 +1,6 @@
+/**
+ * Tracks progress of the graph construction and layout
+ */
 export default class Progress {
   constructor() {
     this.message = '';
