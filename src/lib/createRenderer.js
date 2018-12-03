@@ -1,3 +1,6 @@
+/**
+ * The core of the rendering process
+ */
 import createPanZoom from 'panzoom';
 import createTextMeasure from './measureText';
 import createAggregateLayout from './aggregateLayout';
@@ -6,6 +9,9 @@ import createLinkAnimator from './renderer/linkAnimator';
 
 let svg = require('simplesvg');
 
+/**
+ * Creates a new renderer. The rendering is done with SVG.
+ */
 export default function createRenderer(progress) {
   const scene = document.querySelector('#scene');
   const nodeContainer = scene.querySelector('#nodes');
