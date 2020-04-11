@@ -118,6 +118,6 @@ export default function buildGraph(entryWord, pattern, MAX_DEPTH, progress) {
   }
 
   function getResponse(query) {
-    return jsonpFetch('//suggestqueries.google.com/complete/search?client=firefox&q=' + encodeURIComponent(query));
+    return jsonpFetch('https://suggestqueries.google.com/complete/search?client=firefox&q=' + encodeURIComponent(query));
   }
 }
