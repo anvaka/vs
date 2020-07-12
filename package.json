@@ -10,16 +10,16 @@
     "build": "node build/build.js"
   },
   "dependencies": {
-    "delaunator": "^3.0.2",
-    "ngraph.events": "0.0.4",
-    "ngraph.forcelayout": "^0.5.0",
-    "ngraph.graph": "0.0.14",
+    "delaunator": "^4.0.1",
+    "ngraph.events": "1.2.1",
+    "ngraph.forcelayout": "^1.0.1",
+    "ngraph.graph": "^19.1.0",
     "ngraph.kruskal": "^1.0.0",
-    "ngraph.random": "^0.1.0",
-    "panzoom": "^7.0.3",
-    "query-state": "^4.2.0",
+    "ngraph.random": "^1.0.0",
+    "panzoom": "^9.2.5",
+    "query-state": "^4.3.0",
     "simplesvg": "^0.1.1",
-    "vue": "^2.5.2"
+    "vue": "^2.6.11"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",
