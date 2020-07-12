@@ -6,6 +6,7 @@ import createTextMeasure from './measureText';
 import createAggregateLayout from './aggregateLayout';
 import bus from '../bus';
 import createLinkAnimator from './renderer/linkAnimator';
+import buildLinkIndex from './buildLinkIndex';
 
 let svg = require('simplesvg');
 
@@ -17,7 +18,8 @@ export default function createRenderer(progress) {
   const nodeContainer = scene.querySelector('#nodes');
   const edgeContainer = scene.querySelector('#edges');
   const hideTooltipArgs = {isVisible: false};
-
+  const svgEl = document.querySelector('svg');
+  const pt = svgEl.createSVGPoint();
   const panzoom = createPanZoom(scene);
   const defaultRectangle = {left: -500, right: 500, top: -500, bottom: 500}
   panzoom.showRectangle(defaultRectangle);
@@ -25,6 +27,7 @@ export default function createRenderer(progress) {
   // maps node id to node ui
   let nodes = new Map();
 
+  let linkIndex;
   let layout, graph, currentLayoutFrame = 0, linkAnimator;
   let textMeasure = createTextMeasure(scene);
   bus.on('graph-ready', onGraphReady);
@@ -40,8 +43,7 @@ export default function createRenderer(progress) {
   }
 
   function onMouseMove(e) {
-    const id = e.target && e.target.id;
-    const link = linkAnimator.getLinkInfo(id);
+    let link = findLinkInfoFromEvent(e);
     if (link) {
       showTooltip(link, e.clientX, e.clientY);
     } else {
@@ -49,12 +51,30 @@ export default function createRenderer(progress) {
     }
   }
 
+  function getNearestLink(x, y) {
+    if (!linkIndex) return;
+
+    pt.x = x; pt.y = y;
+    let svgP = pt.matrixTransform(scene.getScreenCTM().inverse());
+    let link = linkIndex.findNearestLink(svgP.x, svgP.y, 30);
+    if (link) return link.id;
+  }
+
   function onSceneClick(e) {
-    const id = e.target && e.target.id;
-    const info = linkAnimator.getLinkInfo(id);
+    let info = findLinkInfoFromEvent(e);
     if (info)  {
       bus.fire('show-details', info.link);
     }
+  }
+
+  function findLinkInfoFromEvent(e) {
+    const id = e.target && e.target.id;
+    let linkInfo = linkAnimator.getLinkInfo(id);
+    if (!linkInfo) {
+      let linkId = getNearestLink(e.clientX, e.clientY);
+      linkInfo = linkAnimator.getLinkInfo(linkId);
+    }
+    return linkInfo;
   }
 
   function showTooltip(minLink, clientX, clientY) {
@@ -130,7 +150,18 @@ export default function createRenderer(progress) {
     progress.done();
     linkAnimator = createLinkAnimator(graph, layout, edgeContainer);
     document.addEventListener('mousemove', onMouseMove);
-    scene.addEventListener('click', onSceneClick, true);
+    svgEl.addEventListener('click', onSceneClick);
+    let radius = 42;
+    linkIndex = buildLinkIndex(graph, layout, radius);
+    // let points = linkIndex.getPoints();
+    // points.forEach(point => {
+    //   scene.appendChild(svg('circle', {
+    //     cx: point.x,
+    //     cy: point.y,
+    //     r: radius,
+    //     fill: 'transparent',
+    //   }))
+    // })
   }
 
   function clearLastScene() {
@@ -138,7 +169,7 @@ export default function createRenderer(progress) {
     clear(edgeContainer);
 
     document.removeEventListener('mousemove', onMouseMove);
-    scene.removeEventListener('click', onSceneClick, true);
+    svgEl.removeEventListener('click', onSceneClick);
     if (layout) layout.off('ready', drawLinks);
     if (graph) graph.off('changed', onGraphStructureChanged);
     if (linkAnimator) linkAnimator.dispose();
