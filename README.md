@@ -24,4 +24,4 @@ npm run build --report
 
 # License
 
-The code in this repository is released under [MIT License](https://github.com/anvaka/vs/blob/master/LICENSE).
+The code in this repository is released under [MIT License](https://github.com/anvaka/vs/blob/main/LICENSE).
