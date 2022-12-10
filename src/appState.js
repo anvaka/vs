@@ -1,5 +1,6 @@
 import buildGraph from './lib/buildGraph';
 import Progress from './Progress';
+import {reactive} from 'vue';
 
 const queryState = require('query-state');
 
@@ -11,20 +12,18 @@ const qs = queryState({
 
 let lastBuilder;
 const appStateFromQuery = qs.get();
-const appState = {
+const appState = reactive({
   hasGraph: false,
   maxDepth: appStateFromQuery.maxDepth || 2,
   progress: new Progress(),
   graph: null,
   query: appStateFromQuery.query,
   pattern: appStateFromQuery.pattern || '[query] vs ...'
-}
+});
 
 if (appState.query) {
   performSearch(appState.query);
 }
-
-export default appState;
 
 qs.onChange(updateAppState);
 
@@ -33,6 +32,7 @@ function updateAppState(newState) {
 }
 
 export function performSearch(queryString) {
+  debugger;
   appState.hasGraph = true;
   appState.progress.reset();
 
@@ -48,4 +48,8 @@ export function performSearch(queryString) {
 
 export function resolveQueryFromLink(from, to) {
   return appState.pattern.replace('[query]', from).replace('...', to);
+}
+
+export function getAppState() {
+  return appState;
 }

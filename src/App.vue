@@ -30,18 +30,20 @@
 </template>
 
 <script>
-import appState, {performSearch, resolveQueryFromLink} from './appState.js';
+import {getAppState, performSearch, resolveQueryFromLink} from './appState.js';
 import createRenderer from './lib/createRenderer';
 import About from './components/About';
 import QueryInput from './components/QueryInput';
 import bus from './bus'
+
+const appState = getAppState();
 
 export default {
   name: 'App',
   data() {
     return {
       aboutVisible: false,
-      appState,
+      appState: getAppState(),
       tooltip: {
         text: '',
         x: '',
@@ -96,7 +98,7 @@ export default {
       this.renderer.render(appState.graph);
     }
   },
-  beforeDestroy() {
+  beforeUnmount() {
     bus.off('show-tooltip', this.showTooltip, this);
     bus.off('show-details', this.showDetails, this);
   }

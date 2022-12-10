@@ -1,7 +1,7 @@
 <template>
   <div class='query-input-container' @click.prevent='focus'>
     <input class='search-input' 
-      :value='value' @input="$emit('input', $event.target.value)"
+      :value='modelValue' @input="$emit('update:modelValue', $event.target.value)"
       type='text' :placeholder='placeholder' autofocus ref='input'>
     <span type='text' class='prefix' ref='prefix'>{{patternPrefix}}</span> 
     <span class='search-measure' ref='measure'></span>
@@ -14,9 +14,9 @@
  * A user control that renders input string with read-only prefix/suffix
  */
 export default {
-  props: ['placeholder', 'value', 'pattern'],
+  props: ['placeholder', 'modelValue', 'pattern'],
   watch: {
-    value(newValue) {
+    modelValue() {
       this.ensureSuffixPos();
     }
   },
@@ -38,7 +38,7 @@ export default {
       // Good thing that this doesn't happen often. Otherwise this would be super slow
       const {suffix, measure, prefix} = this.$refs;
 
-      measure.innerText = this.value;
+      measure.innerText = this.modelValue;
       let textWidth = this.$refs.measure.getBoundingClientRect();
 
       measure.innerText = this.patternReminder;
@@ -51,7 +51,7 @@ export default {
       let maxValue = selfBox.width - suffixBox.width;
 
       let suffixPos = Math.min(prefixBox.width + textWidth.width + 4, maxValue);
-      if (this.value.length === 0) {
+      if (this.modelValue.length === 0) {
         // When there is nothing entered, let's hide prefix/suffix.
         suffix.style.visibility = 'hidden';
         prefix.style.visibility = 'hidden';

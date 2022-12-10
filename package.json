@@ -5,11 +5,13 @@
   "author": "Andrei Kashcha",
   "private": true,
   "scripts": {
-    "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
-    "start": "npm run dev",
-    "build": "node build/build.js"
+    "serve": "vue-cli-service serve",
+    "start": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "core-js": "^3.8.3",
     "delaunator": "^4.0.1",
     "flatbush": "^3.3.0",
     "ngraph.events": "1.2.1",
@@ -19,55 +21,41 @@
     "ngraph.random": "^1.0.0",
     "panzoom": "^9.2.5",
     "query-state": "^4.3.0",
-    "simplesvg": "^0.1.1",
-    "vue": "^2.6.11"
+    "simplesvg": "^0.2.0",
+    "vue": "^3.2.13"
   },
   "devDependencies": {
-    "autoprefixer": "^7.1.2",
-    "babel-core": "^6.22.1",
-    "babel-helper-vue-jsx-merge-props": "^2.0.3",
-    "babel-loader": "^7.1.1",
-    "babel-plugin-syntax-jsx": "^6.18.0",
-    "babel-plugin-transform-runtime": "^6.22.0",
-    "babel-plugin-transform-vue-jsx": "^3.5.0",
-    "babel-preset-env": "^1.3.2",
-    "babel-preset-stage-2": "^6.22.0",
-    "chalk": "^2.0.1",
-    "copy-webpack-plugin": "^4.0.1",
-    "css-loader": "^0.28.0",
-    "extract-text-webpack-plugin": "^3.0.0",
-    "file-loader": "^1.1.4",
-    "friendly-errors-webpack-plugin": "^1.6.1",
-    "html-webpack-plugin": "^2.30.1",
-    "node-notifier": "^5.1.2",
-    "optimize-css-assets-webpack-plugin": "^3.2.0",
-    "ora": "^1.2.0",
-    "portfinder": "^1.0.13",
-    "postcss-import": "^11.0.0",
-    "postcss-loader": "^2.0.8",
-    "postcss-url": "^7.2.1",
-    "rimraf": "^2.6.0",
-    "semver": "^5.3.0",
-    "shelljs": "^0.7.6",
-    "stylus": "^0.54.5",
-    "stylus-loader": "^3.0.2",
-    "uglifyjs-webpack-plugin": "^1.1.1",
-    "url-loader": "^0.5.8",
-    "vue-loader": "^13.3.0",
-    "vue-style-loader": "^3.0.1",
-    "vue-template-compiler": "^2.5.2",
-    "webpack": "^3.6.0",
-    "webpack-bundle-analyzer": "^2.9.0",
-    "webpack-dev-server": "^2.9.1",
-    "webpack-merge": "^4.1.0"
+    "@babel/core": "^7.12.16",
+    "@babel/eslint-parser": "^7.12.16",
+    "@vue/cli-plugin-babel": "~5.0.0",
+    "@vue/cli-plugin-eslint": "~5.0.0",
+    "@vue/cli-service": "~5.0.0",
+    "eslint": "^7.32.0",
+    "eslint-plugin-vue": "^8.0.3",
+    "stylus": "^0.59.0",
+    "stylus-loader": "^7.1.0"
   },
-  "engines": {
-    "node": ">= 6.0.0",
-    "npm": ">= 3.0.0"
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/vue3-essential",
+      "eslint:recommended"
+    ],
+    "parserOptions": {
+      "parser": "@babel/eslint-parser"
+    },
+    "rules": {
+      "vue/multi-word-component-names": "off",
+      "no-debugger": "off"
+    }
   },
   "browserslist": [
     "> 1%",
     "last 2 versions",
-    "not ie <= 8"
+    "not dead",
+    "not ie 11"
   ]
 }

@@ -47,7 +47,7 @@ export default {
     }
     document.addEventListener('keyup', this.closeHandler);
   },
-  beforeDestroy() {
+  beforeUnmount() {
     document.removeEventListener('keyup', this.closeHandler);
   },
   methods: {
