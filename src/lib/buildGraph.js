@@ -87,9 +87,11 @@ export default function buildGraph(entryWord, pattern, MAX_DEPTH, progress) {
       return;
     }
 
-    let nextWord = queue.shift();
-    fetchNext(nextWord);
-    progress.updateLayout(queue.length, nextWord);
+    while (queue.length > 0) {
+      let nextWord = queue.shift();
+      fetchNext(nextWord);
+      progress.updateLayout(queue.length, nextWord);
+    }
   }
 
   function fetchNext(query) {
