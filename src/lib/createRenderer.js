@@ -181,6 +181,25 @@ export default function createRenderer(progress) {
     }
   }
 
+  function nodeClick(e) {
+    var target = e.target;
+    var textNode = null;
+    switch (target.nodeName) {
+      case 'g':
+        textNode = target.parentNode.querySelector('text');
+        break;
+      case 'text':
+        textNode = target;
+        break;
+      default:
+        break;
+    }
+    if (textNode != null) {
+      bus.fire('query-change', textNode.innerHTML);
+      console.log(textNode.innerHTML);
+    }
+  }
+
   function addNode(node) {
     const dRatio = (graph.maxDepth - node.data.depth)/graph.maxDepth;
     let pos = getNodePosition(node.id);
@@ -220,6 +239,7 @@ export default function createRenderer(progress) {
 
     nodeContainer.appendChild(ui);
     nodes.set(node.id, ui);
+    nodes.forEach(node => node.addEventListener("click", nodeClick));
   }
 
 
