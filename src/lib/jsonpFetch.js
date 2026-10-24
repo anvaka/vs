@@ -19,7 +19,10 @@ export default function jsonpFetch(url) {
 
     loadScript = document.createElement('script');
     loadScript.src = `${url}&callback=${name}`;
-    loadScript.onerror = reject;
+    loadScript.onerror = function(error) {
+      dispose();
+      reject(error);
+    };
     document.head.appendChild(loadScript);
   }
 
